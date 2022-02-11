@@ -1,0 +1,102 @@
+﻿<Window x:Class="OnlinePitsa.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlinePitsa"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Name="home"
+        Title="OnlineSop" Height="650" Width="1000" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent" Icon="images/profile.jpg">
+    <Border CornerRadius="8" Background="{DynamicResource PrimaryBackgroundColor}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="8 0 0 8" Background="White">
+                <Grid x:Name="GridMenu" Width="60">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top">
+                        <Path Data="{DynamicResource Logo}" Width="25" Height="25" Fill="{DynamicResource PrimaryBlueColor}" Stretch="Fill" Margin="16 0 0 0"/>
+                        <Label Content="Logo" FontWeight="Bold" Foreground="{DynamicResource PrimaryBlueColor}" FontSize="20" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                    </StackPanel>
+
+                    <ToggleButton x:Name="btnmenu"  HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" Style="{StaticResource MenuIconStyle}" Margin="0 0 15 0" >
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="HideStackPanel">
+                                        <DoubleAnimation Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="200" To="60" Duration="0:0:0.5"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                <BeginStoryboard>
+                                    <Storyboard x:Name="ShowStackPanel">
+                                        <DoubleAnimation Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="65" To="200" Duration="0:0:0.5">
+
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+                    <StackPanel Grid.Row="3">
+                        <RadioButton x:Name="rdHome" Style="{DynamicResource MenuRadioButtonStyle}" Content="Home" Tag="{DynamicResource Home}" Click="rdHome_Click"/>
+                        <RadioButton x:Name="rdCategory" Style="{DynamicResource MenuRadioButtonStyle}" Content="Category" Tag="{DynamicResource Category}" Click="rdCategory_Click" Margin="0 5 0 5"/>
+                        <RadioButton x:Name="rdProduct" Style="{DynamicResource MenuRadioButtonStyle}" Content="Product" Tag="{DynamicResource Product}" Click="rdProduct_Click"/>
+                        <RadioButton x:Name="rdlogout" Style="{DynamicResource MenuRadioButtonStyle}" Content="Logout" Tag="{DynamicResource Logout}" Click="rdlogout_Click" Margin="0 5 0 5"/>
+
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" VerticalAlignment="Bottom" Orientation="Horizontal" Width="200" Margin="0 0 0 20" >
+                        <Ellipse Width="40" Height="40" Margin="10 0 0 0">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="images/profile.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <StackPanel Orientation="Vertical" Margin="8 0 0 0">
+                            <Label Content="Nuhyusuf" Foreground="{DynamicResource TextPrimaryColor}" FontSize="14" FontWeight="Bold"/>
+                            <Label Content="+998916665377" Foreground="{DynamicResource PrimaryGrayColor}" FontSize="10"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 10 0">
+                    <Button  x:Name="btnMinimize" Style="{DynamicResource MaximazedAndNormalized}" Content="{DynamicResource Minimize}" Click="btnMinimize_Click"/>
+                    <Button x:Name="btnRestone"  Foreground="White"  Click="btnRestone_Click" BorderThickness="2" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaximazedAndNormalized}">
+                                <Setter Property="Content" Value="{DynamicResource normalize}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=home, Path=WindowState}" Value="Maximized">
+                                        <Setter Property="Content" Value="{DynamicResource Maximazed}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="BtnClose"  Style="{StaticResource Exit}" Content="{DynamicResource Close}" Click="BtnClose_Click"/>
+
+
+                </StackPanel>
+                <Border Grid.Row="1" Margin="10">
+                    <Frame x:Name="PagesNavigation" NavigationUIVisibility="Hidden">
+
+                    </Frame>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>
